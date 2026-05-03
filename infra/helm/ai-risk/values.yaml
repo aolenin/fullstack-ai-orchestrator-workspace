@@ -1,0 +1,6 @@
+backend:
+  image: ghcr.io/YOUR_ORG/ai-risk-backend:dev
+web:
+  image: ghcr.io/YOUR_ORG/ai-risk-web:dev
+postgres:
+  enabled: true

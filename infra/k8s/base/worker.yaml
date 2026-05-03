@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+  namespace: ai-risk
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: celery-worker
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+    spec:
+      containers:
+        - name: worker
+          image: ghcr.io/YOUR_ORG/ai-risk-backend:dev
+          command: ["celery", "-A", "config", "worker", "--loglevel=info", "--queues=default,notifications,audit"]
+          envFrom:
+            - configMapRef:
+                name: ai-risk-config
+            - secretRef:
+                name: ai-risk-secrets
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-beat
+  namespace: ai-risk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-beat
+  template:
+    metadata:
+      labels:
+        app: celery-beat
+    spec:
+      containers:
+        - name: beat
+          image: ghcr.io/YOUR_ORG/ai-risk-backend:dev
+          command: ["celery", "-A", "config", "beat", "--loglevel=info", "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler"]
+          envFrom:
+            - configMapRef:
+                name: ai-risk-config
+            - secretRef:
+                name: ai-risk-secrets

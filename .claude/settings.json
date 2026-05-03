@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose:*)",
+      "Bash(python:*)",
+      "Bash(npm:*)",
+      "Bash(kubectl:*)",
+      "Bash(helm:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /:*)"
+    ]
+  }
+}

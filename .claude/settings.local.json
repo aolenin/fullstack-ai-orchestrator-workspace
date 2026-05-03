@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "Bash(brew install *)",
+      "Bash(gh auth *)",
+      "mcp__github__search_repositories",
+      "mcp__github__get_file_contents",
+      "mcp__github__list_commits",
+      "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace remote -v)",
+      "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace status)",
+      "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace init)",
+      "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace remote add origin git@github-vp.com:aolenin/fullstack-ai-orchestrator-workspace.git)",
+      "Bash(git *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "filesystem"
+  ]
+}

@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ai-risk
+  namespace: argocd
+spec:
+  sourceRepos: ['*']
+  destinations:
+    - namespace: ai-risk
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'

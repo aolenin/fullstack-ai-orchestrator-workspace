@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+namePrefix: prod-
+images:
+  - name: ghcr.io/YOUR_ORG/ai-risk-backend
+    newTag: prod
+  - name: ghcr.io/YOUR_ORG/ai-risk-web
+    newTag: prod

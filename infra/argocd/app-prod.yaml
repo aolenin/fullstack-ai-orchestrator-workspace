@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-risk-prod
+  namespace: argocd
+spec:
+  project: ai-risk
+  source:
+    repoURL: https://github.com/YOUR_ORG/ai-risk-orchestrator-workspace.git
+    targetRevision: main
+    path: infra/k8s/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ai-risk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
