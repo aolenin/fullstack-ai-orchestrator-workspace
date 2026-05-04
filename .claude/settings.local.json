@@ -11,7 +11,12 @@
       "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace status)",
       "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace init)",
       "Bash(git -C /Users/daitona/Developer/ai-orchestrator-workspace remote add origin git@github-vp.com:aolenin/fullstack-ai-orchestrator-workspace.git)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(rm -rf /Users/daitona/Developer/ai-orchestrator-workspace/.claude/process/guardrail-profiles)",
+      "Bash(rm /Users/daitona/Developer/ai-orchestrator-workspace/.claude/process/templates/routing-decision.md)",
+      "Bash(rm /Users/daitona/Developer/ai-orchestrator-workspace/.claude/process/templates/lightweight-task-summary.md)",
+      "Bash(rm /Users/daitona/Developer/ai-orchestrator-workspace/.claude/project/role-deltas/frontend.md)",
+      "Bash(rm /Users/daitona/Developer/ai-orchestrator-workspace/.claude/project/role-deltas/security-rbac.md)"
     ]
   },
   "enableAllProjectMcpServers": true,
