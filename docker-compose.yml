@@ -5,8 +5,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-ai_risk}
       POSTGRES_USER: ${POSTGRES_USER:-ai_risk}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ai_risk_dev_password}
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -17,8 +15,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -32,9 +28,9 @@ services:
       POSTGRES_HOST: db
       CELERY_BROKER_URL: redis://redis:6379/0
     command: >
-      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
+      sh -c "python manage.py makemigrations --no-input &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     depends_on:
@@ -57,6 +53,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    profiles: ["celery"]
 
   beat:
     build: ./backend
@@ -72,11 +69,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    profiles: ["celery"]
 
   web:
     build: ./web
     environment:
-      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+      VITE_BACKEND_INTERNAL_URL: http://backend:8000
     command: npm run dev -- --host 0.0.0.0
     ports:
       - "5173:5173"

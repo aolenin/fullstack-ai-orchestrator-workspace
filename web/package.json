@@ -6,12 +6,19 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.0",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "latest"
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.0",
+    "styled-components": "^6.1.0",
+    "typescript": "latest",
+    "vite": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/styled-components": "^5.1.34"
+  }
 }

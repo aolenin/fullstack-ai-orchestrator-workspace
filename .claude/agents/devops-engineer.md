@@ -46,6 +46,14 @@ Every time you introduce a new environment variable or secret (API key, token, p
 - Verification commands.
 - Risks and follow-ups.
 
+## Docker networking rules
+
+- **Never expose database or cache ports to the host.** `db` (Postgres) and `redis` must have no `ports:` section — they are only reachable inside the Docker network.
+- **Backend services must not expose ports to the host unless a browser directly loads assets from them.** Use Vite proxy (or nginx in production) to route API calls internally.
+- **Single host-exposed port per stack in dev:** only the frontend dev server (Vite, port 5173) is exposed to the host. Everything else communicates via Docker internal DNS (`http://backend:8000`, `redis://redis:6379`, etc.).
+- **Vite proxy pattern:** configure `server.proxy` in `vite.config.ts` so `/api` is proxied to `http://backend:8000`. The `VITE_BACKEND_INTERNAL_URL` env var controls the target; it is set to `http://backend:8000` in `docker-compose.yml` and defaults to `http://localhost:8000` for local-without-Docker runs.
+- **Celery worker/beat:** add `profiles: ["celery"]` to the `worker` and `beat` services so they do not start on plain `docker compose up`. Start them explicitly with `docker compose --profile celery up`.
+
 ## Project context rule
 
 Before any non-trivial work, read `CLAUDE.md` and `AGENTS.md` from the project root. These files are the authoritative source of container names, local dev commands, CI pipeline structure, package manager, Celery run commands, secret management requirements, and deployment scope for that specific project. Always apply what you find there over any general defaults.
