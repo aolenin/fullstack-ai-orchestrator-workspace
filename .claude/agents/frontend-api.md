@@ -37,6 +37,15 @@ POST /api/rules/evaluate/ → invalidatesTags: ['Rule']
 - `web/src/store/authApi.ts` — auth domain
 - `web/src/store/<domain>Api.ts` — one file per backend app domain
 
+## Chart-data endpoints (Recharts integration)
+
+Dashboard metrics are visualised with **Recharts** on the frontend. When designing API response shapes for chart-backing endpoints:
+
+- Return an array of plain objects whose keys are the dimensions Recharts needs (`{ name, value }` for pies/bars, `{ date, lineA, lineB }` for time series). One row per chart datum — do not nest series arrays under named groups, since Recharts maps `dataKey` directly against row fields.
+- Include severity / status as a string field (`severity: 'critical' | 'high' | 'medium'`) so the frontend can map it to the canonical color palette without server-side color hints.
+- For time-series endpoints, return ISO dates as strings already bucketed at the granularity the chart will display (daily / hourly). Do not return raw event rows — the backend should aggregate.
+- KPI tile endpoints should return a single object per KPI (`{ value, delta, trend, status }`) rather than mixing many KPIs into one denormalised payload.
+
 ## Expected output
 - Updated API slice file(s) with new endpoints.
 - Updated TypeScript types.

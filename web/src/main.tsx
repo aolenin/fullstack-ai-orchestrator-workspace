@@ -7,6 +7,9 @@ import { GlobalStyle } from './GlobalStyle'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import Agents from './pages/Agents'
+import Merchants from './pages/Merchants'
+import Profile from './pages/Profile'
 import ProtectedRoute from './ProtectedRoute'
 
 function App() {
@@ -20,6 +23,30 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/agents"
+          element={
+            <ProtectedRoute>
+              <Agents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/merchants"
+          element={
+            <ProtectedRoute>
+              <Merchants />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />

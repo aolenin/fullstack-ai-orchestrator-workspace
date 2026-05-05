@@ -71,6 +71,21 @@ Any new page or component must use these tokens — never introduce new whites o
 - RTK Query reducers and middleware must be registered there.
 - No other global state libraries (MobX, Zustand, etc.) without explicit approval.
 
+## Charts & data visualisation — Recharts (mandatory)
+
+All charts, graphs, and metric visualisations use **Recharts** (`recharts`, already installed in `web/package.json`). Never reach for Chart.js, D3 directly, ApexCharts, Victory, or any other charting library without explicit approval.
+
+Rules:
+1. Wrap every chart in `<ResponsiveContainer width="100%" height={...}>` so it fits inside its card.
+2. Use the dark palette tokens for chart styling — never inherit a default light Recharts theme:
+   - axis / tick stroke: `#4a6080`
+   - grid stroke: `#1a2640`
+   - tooltip background: `#0f1623`, border `#1e2d45`, text `#e2e8f0`
+   - severity colors: Critical `#ef4444`, High `#f59e0b`, Medium `#3b82f6`, OK/Success `#22c55e`
+3. Pick the chart type by intent: `<PieChart>`/donut for share-of-total, `<BarChart>` for category counts, `<LineChart>`/`<AreaChart>` for time series, `<RadialBarChart>` for SLA/compliance gauges.
+4. For dashboards with many charts, define mock or fixture data as `const MOCK_*` arrays at the top of the file when the backend endpoint is not yet wired — keep the data shape close to the eventual API response.
+5. Keep chart wrappers in styled-components (Card, ChartContainer) — never style Recharts via inline `style={{}}`.
+
 ## Expected output
 - Summary of findings or changes.
 - Files touched or recommended files.
